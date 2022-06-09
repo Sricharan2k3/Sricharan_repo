@@ -1,5 +1,6 @@
 dict={117:["Sricharan","95","5"],115:["Zaid","96.5","3"],130:["Balaji","97","2"],91:["Akash","99","1"],90:["Mayaank","96","4"],121:["Ravi","93","6"],95:["Kalyan","91","7"]}
-for rollno,details in dict.items():
+for rollno,details in sorted(dict.items()):
+    # sorted function is used to sord the key values from ascending to descending
     print(rollno, ':', details)
 s=0;r=0;
 for rollno, details in dict.items():
