@@ -10,5 +10,5 @@ elif ("o" in alphabet):
     print(f"{alphabet} is a vowel")
 elif ("o" in alphabet):
     print(f"{alphabet} is a vowel")
-else
+else:
     print(f"{alphabet} is a consonant")
