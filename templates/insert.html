@@ -4,7 +4,12 @@
 {%block content%}
 <form method="POST" action="{% url 'insert' %}">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
+
+    name:<input type="text" name="name" value="{{student.name}}" /><br><br>
+    age:<input type="text" name="age" value="{{student.age}}" /><br><br>
+    address:<input type="text" name="address" value="{{student.address}}" /><br><br>
+    
+    <button type="submit">Add Record</button>
+    <a href="{% url 'show'%}">Show Details</a>
 </form>
 {%endblock%}

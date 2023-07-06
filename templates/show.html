@@ -20,11 +20,11 @@
     <tbody>
         {%for student in stu %}
         <tr>
-            <td>{{student.pk}}</td>
+            <td>{{student.id}}</td>
             <td>{{student.name}}</td>
             <td>{{student.age}}</td>
             <td>{{student.address}}</td>
-            <td><a href="update/{{student.pk}}">Edit</a><br><a href="delete/{{student.pk}}">Delete</a></td>
+            <td><a href="update/{{student.id}}">Edit</a><br><a href="delete/{{student.pk}}">Delete</a></td>
 
         </tr>
         {%endfor%}
