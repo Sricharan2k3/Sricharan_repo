@@ -1,0 +1,109 @@
+
+-- Create the employee table
+-- Create the department table
+CREATE TABLE department (
+    departmentid INT PRIMARY KEY,
+    departmentname VARCHAR(50)
+);
+
+-- Insert sample values into the department table
+INSERT INTO department (departmentid, departmentname)
+VALUES (1, 'Sales');
+
+INSERT INTO department (departmentid, departmentname)
+VALUES (2, 'Marketing');
+
+INSERT INTO department (departmentid, departmentname)
+VALUES (3, 'Finance');
+
+INSERT INTO department (departmentid, departmentname)
+VALUES (4, 'IT');
+
+-- Create the employee table
+CREATE TABLE employee (
+    employid INT PRIMARY KEY,
+    ename VARCHAR(50),
+    salary DECIMAL(10, 2),
+    departmentid INT,
+    FOREIGN KEY (departmentid) REFERENCES department(departmentid)
+);
+
+-- Insert sample values into the employee table
+INSERT INTO employee (employid, ename, salary, departmentid)
+VALUES (1, 'John Doe', 5000.00, 1);
+
+INSERT INTO employee (employid, ename, salary, departmentid)
+VALUES (2, 'Jane Smith', 6000.00, 2);
+
+INSERT INTO employee (employid, ename, salary, departmentid)
+VALUES (3, 'Michael Johnson', 5500.00, 3);
+
+INSERT INTO employee (employid, ename, salary, departmentid)
+VALUES (4, 'Emily Davis', 4500.00, 1);
+
+INSERT INTO employee (employid, ename, salary, departmentid)
+VALUES (5, 'David Lee', 4000.00, 4);
+
+select * from employee;
+select * from department;
+
+--department name having highest max avg sal
+SELECT departmentname
+FROM department
+WHERE departmentid = (
+    SELECT departmentid
+    FROM (
+        SELECT departmentid, ROWNUM as rn
+        FROM (
+            SELECT departmentid, AVG(salary) as avg_sal
+            FROM employee
+            GROUP BY departmentid
+            ORDER BY avg_sal DESC
+        )
+    )
+    WHERE rn = 1
+);
+
+--4th highest salary
+SELECT salary
+FROM (
+    SELECT salary, ROWNUM AS rn
+    FROM (
+        SELECT salary
+        FROM employee
+        ORDER BY salary DESC
+    )
+)
+WHERE rn = 4;
+
+--select odd rows
+SELECT ename, rn
+FROM (
+    SELECT ename, ROWNUM AS rn
+    FROM employee
+    
+)
+WHERE MOD(rn, 2) = 1;
+
+
+select e.ename,e.salary from employee e
+where e.salary>
+(select avg(salary) from employee
+
+group by departmentid);
+
+-- Retrieve all customers who have placed more orders than the average number of orders placed by customers.
+SELECT customer_id, customer_name
+FROM customers c
+WHERE (
+    SELECT COUNT(*)
+    FROM orders o
+    WHERE o.customer_id = c.customer_id
+) > (
+    SELECT AVG(count)
+    FROM (
+        SELECT COUNT(*) AS count
+        FROM orders
+        GROUP BY customer_id
+    ) AS avg_count
+);
